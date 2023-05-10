@@ -1,0 +1,14 @@
+{
+  "visitPage": {
+    "message": "前往簽到頁面"
+  },
+  "checkedIn": {
+    "message": "今日已簽到"
+  },
+  "notCheckIn": {
+    "message": "今日未簽到"
+  },
+  "turnOnOff": {
+    "message": "開啓/關閉自動簽到"
+  }
+}

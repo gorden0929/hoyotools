@@ -1,0 +1,14 @@
+{
+  "visitPage": {
+    "message": "前往签到页面"
+  },
+  "checkedIn": {
+    "message": "今日已签到"
+  },
+  "notCheckIn": {
+    "message": "今日未签到"
+  },
+  "turnOnOff": {
+    "message": "开启/关闭自动签到"
+  }
+}

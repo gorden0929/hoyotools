@@ -1,0 +1,14 @@
+{
+  "visitPage": {
+    "message": "Visit check in page"
+  },
+  "checkedIn": {
+    "message": "Checked in today"
+  },
+  "notCheckIn": {
+    "message": "Not check in today."
+  },
+  "turnOnOff": {
+    "message": "Turn on/off"
+  }
+}
