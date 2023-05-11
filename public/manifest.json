@@ -1,7 +1,7 @@
 {
   "name": "HSR Auto Check In",
   "description": "Auto Check In HSR on Hoyolab Daily",
-  "version": "1.0",
+  "version": "1.0.1",
   "manifest_version": 3,
   "permissions": ["background", "storage", "alarms"],
   "background": {
