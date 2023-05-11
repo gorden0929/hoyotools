@@ -2,8 +2,6 @@ import { IResignInfo } from './interfaces/resignInfo.interface';
 import { actId, resignInfoPath, signPath } from './value';
 
 const main = async () => {
-  console.log('running main');
-  console.log(getLang());
   const resignInfoResult: IResignInfo = (await resignInfo()).data;
   if (!resignInfoResult || resignInfoResult.signed) {
     return;
@@ -45,22 +43,3 @@ const getLang = () => {
 }
 
 main();
-
-// {
-//   "retcode": 0,
-//   "message": "OK",
-//   "data": {
-//       "resign_cnt_daily": 0,
-//       "resign_cnt_monthly": 0,
-//       "resign_limit_daily": 1,
-//       "resign_limit_monthly": 3,
-//       "sign_cnt_missed": 7,
-//       "coin_cnt": 0,
-//       "coin_cost": 0,
-//       "rule": "",
-//       "signed": true,
-//       "sign_days": 3,
-//       "cost": 1,
-//       "month_quality_cnt": 0
-//   }
-// }
