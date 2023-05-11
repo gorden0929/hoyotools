@@ -4,7 +4,9 @@ const runCheck = async () => {
   const now = new Date();
   const storageValue = await chrome.storage.sync.get([chromeStorageKey, chromeStorageKeyOnOff]);
   const isOn = storageValue[chromeStorageKeyOnOff] === true ? true : false;
-  if (!isOn) {
+  if (typeof isOn === 'undefined') {
+    await chrome.storage.sync.set({ [chromeStorageKeyOnOff]: isOn });
+  } else if (isOn === false) {
     return;
   }
   // hsrLastCheckIn is a string
