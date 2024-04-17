@@ -1,45 +1,70 @@
-import { getMessages } from './utils';
-import { chromeStorageKey, chromeStorageKeyOnOff } from './value';
+import { Game } from './interface';
+import { getHoyoToolParams, getMessages, setHoyoToolParams } from './utils';
 
-const isCheckIn = async () => {
-  const switchEl = document.getElementById('switchCheck') as HTMLInputElement;
-  const result = await chrome.storage.sync.get(chromeStorageKeyOnOff);
-  switchEl.checked = result[chromeStorageKeyOnOff] === true ? true : false;
-
-  const el = document.getElementById('isCheckInText') as HTMLDivElement;
-  const storageValue = await chrome.storage.sync.get(chromeStorageKey);
-  const hsrLastCheckInStr: string = storageValue.hsrLastCheckIn;
-
-  if (!hsrLastCheckInStr) {
-    el.innerHTML = getMessages('notCheckIn');
+async function setCheckInTime(game: Game) {
+  const checkInTimeInput = document.getElementById(`${game}CheckInTimeInput`) as HTMLInputElement;
+  const checkInTimeInputValue = checkInTimeInput.value;
+  if (checkInTimeInputValue.length !== 5) {
+    checkInTimeInput.value = '00:05';
     return;
   }
-  const now = new Date();
-  const hsrLastCheckInDate = new Date(hsrLastCheckInStr);
-
-  if (
-    hsrLastCheckInDate.getFullYear() === now.getFullYear() &&
-    hsrLastCheckInDate.getMonth() === now.getMonth() &&
-    hsrLastCheckInDate.getDate() === now.getDate()
-  ) {
-    el.innerHTML = getMessages('checkedIn');
+  const [hour, minute] = checkInTimeInputValue.split(':').map((v) => parseInt(v));
+  if (hour === 0 && minute < 5) {
+    checkInTimeInput.value = '00:05';
     return;
-  } else {
-    el.innerHTML = getMessages('notCheckIn');
   }
+  if (hour === 23 && minute > 55) {
+    checkInTimeInput.value = '23:55';
+    return;
+  }
+  const hoyoToolParams = await getHoyoToolParams();
+  hoyoToolParams[game].checkInTime = checkInTimeInputValue;
+  await setHoyoToolParams(hoyoToolParams);
 }
 
-const visitPageLinkEl = document.getElementById('visitPageLink') as HTMLAnchorElement;
-visitPageLinkEl.innerHTML = getMessages('visitPage');
+async function toggle(element: HTMLInputElement) {
+  const game = element.value as Game;
+  const hoyoToolParams = await getHoyoToolParams();
+  hoyoToolParams[game].isActive = element.checked;
+}
 
-const switchTextEl = document.getElementById('switchCheckLabel') as HTMLDivElement;
-switchTextEl.innerHTML = getMessages('turnOnOff');
-
-const switchEl = document.getElementById('switchCheck') as HTMLInputElement;
-switchEl.addEventListener('change', async (e) => {
-  const checked = (<HTMLInputElement>e.target).checked;
-  await chrome.storage.sync.set({ [chromeStorageKeyOnOff]: checked });
-});
-
-
-isCheckIn();
+const DOMContentLoaded = async () => {
+  const hoyoToolParams = await getHoyoToolParams();
+  Object.keys(hoyoToolParams).forEach(async (key) => {
+    const game = key as Game;
+    const params = hoyoToolParams[game];
+    // set checkbox
+    const checkboxElement = document.getElementById(`${game}Checkbox`) as HTMLInputElement;
+    checkboxElement.checked = params.isActive;
+    // set time input
+    const checkInTimeInputElement = document.getElementById(`${game}CheckInTimeInput`) as HTMLInputElement;
+    checkInTimeInputElement.value = params.checkInTime;
+    const checkInTimeElement = document.getElementById(`${game}CheckInTime`) as HTMLSpanElement;
+    checkInTimeElement.innerHTML = params.checkInTime;
+    // set status
+    const checkInStatusElement = document.getElementById(`${game}CheckInStatus`) as HTMLDivElement;
+    if (!params.lastCheckInDate) {
+      checkInStatusElement.innerHTML = getMessages('notCheckIn');
+    } else {
+      if (new Date(params.lastCheckInDate).toDateString() === new Date().toDateString()) {
+        checkInStatusElement.innerHTML = getMessages('checkedIn');
+      } else {
+        checkInStatusElement.innerHTML = getMessages('notCheckedIn');
+      }
+    }
+    // set translation
+    const turnOnElements = document.querySelectorAll('[data-ht-checkbox]');
+    turnOnElements.forEach((element) => {
+      element.innerHTML = getMessages('turnOn');
+    });
+    const setElements = document.querySelectorAll('[data-ht-set]');
+    setElements.forEach((element) => {
+      element.innerHTML = getMessages('set');
+    });
+    const timeSetElements = document.querySelectorAll('[data-ht-timeset]');
+    timeSetElements.forEach((element) => {
+      element.innerHTML = getMessages('timeSet');
+    });
+  });
+};
+document.addEventListener('DOMContentLoaded', DOMContentLoaded);
