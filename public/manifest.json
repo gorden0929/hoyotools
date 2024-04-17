@@ -27,7 +27,7 @@
     {
       "matches": [
         "*://act.hoyolab.com/ys/event/signin-sea-v3/index.html?act_id=e202102251931481*",
-        "*://act.hoyolab.com/bbs/event/signin/hkrpg/index.html?act_id=e202303301540311*", 
+        "*://act.hoyolab.com/bbs/event/signin/hkrpg/index.html?act_id=e202303301540311*",
         "*://act.hoyolab.com/bbs/event/signin-bh3/index.html?act_id=e202110291205111*",
         "*://act.hoyolab.com/bbs/event/signin/nxx/index.html?act_id=e202202281857121*"
       ],
@@ -35,5 +35,5 @@
       "run-at": "document_end"
     }
   ],
-  "web_accessible_resources": [{ "resources": ["/images/*"] }]
+  "web_accessible_resources": [{ "resources": ["/images/*"], "matches": ["<all_urls>"] }]
 }

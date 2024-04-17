@@ -6,8 +6,13 @@ export const getMessages = (messageName: string, substitutions?: string | string
 };
 
 export const getHoyoToolParams = async () => {
-  const hoyoToolParams = (await chrome.storage.sync.get('hoyoToolParams')) as HoyoToolParams;
-  if (!hoyoToolParams || hoyoToolParams === undefined || hoyoToolParams === null) {
+  const data = await chrome.storage.sync.get('hoyoToolParams');
+  console.log(data);
+
+  const hoyoToolParams = data.hoyoToolParams;
+
+  if (!hoyoToolParams || hoyoToolParams === undefined || hoyoToolParams === null || Object.keys(hoyoToolParams).length === 0) {
+    console.log('hoyoToolParams is empty');
     const defaultHoyoToolParams = getDefaultHoyoToolParams();
     await setHoyoToolParams(defaultHoyoToolParams);
     return defaultHoyoToolParams;
@@ -17,7 +22,7 @@ export const getHoyoToolParams = async () => {
 };
 
 export const setHoyoToolParams = async (hoyoToolParams: HoyoToolParams) => {
-  await chrome.storage.sync.set({ hoyoToolParams: hoyoToolParams });
+  return chrome.storage.sync.set({ hoyoToolParams });
 };
 
 export const hasReachedCheckInTime = (lastCheckInDate: Date | string | null, checkInTime: string) => {

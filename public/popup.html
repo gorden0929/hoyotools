@@ -13,8 +13,8 @@
     <img src="images/genshin_icons.webp" alt="Genshin Impact Icon" width="32px" height="32px">
     <div class="d-flex flex-column" style="gap: 0.5rem">
       <div>
-        <label class="cursor-pointer" for="genshinCheckbox">
-          <input type="checkbox" id="genshinCheckbox" value="genshin" onchange="toggle(this)" data-ht-checkbox>Turn On
+        <label for="genshinCheckbox">
+          <input type="checkbox" id="genshinCheckbox" value="genshin" data-ht-checkbox>Turn On
         </label>
       </div>
       <div>
@@ -22,7 +22,7 @@
       </div>
       <div class="d-flex" style="gap: 0.5rem">
         <input type="time" id="genshinCheckInTimeInput">
-        <button type="button" onclick="setCheckInTime('genshin')" data-ht-set>Set</button>
+        <button type="button" id="genshinSetCheckInTimeBtn" data-ht-set>Set</button>
       </div>
       <div>
         <span class="m-0" data-ht-timeset>Check In Time set to</span><span id="genshinCheckInTime">00:05</span>
@@ -41,7 +41,7 @@
     <div class="d-flex flex-column" style="gap: 0.5rem">
       <div>
         <label for="hsrCheckbox">
-          <input type="checkbox" id="hsrCheckbox" value="hsr" onchange="toggle(this)" data-ht-checkbox>Turn On
+          <input type="checkbox" id="hsrCheckbox" value="hsr" data-ht-checkbox>Turn On
         </label>
       </div>
       <div>
@@ -49,7 +49,7 @@
       </div>
       <div class="d-flex" style="gap: 0.5rem">
         <input type="time" id="hsrCheckInTimeInput">
-        <button type="button" onclick="setCheckInTime('hsr')" data-ht-set>Set</button>
+        <button type="button" id="hsrSetCheckInTimeBtn" data-ht-set>Set</button>
       </div>
       <div>
         <span class="m-0" data-ht-timeset>Check In Time set to</span><span id="hsrCheckInTime">00:05</span>
@@ -68,7 +68,7 @@
     <div class="d-flex flex-column" style="gap: 0.5rem">
       <div>
         <label for="honkai3Checkbox">
-          <input type="checkbox" id="honkai3Checkbox" value="honkai3" onchange="toggle(this)" data-ht-checkbox>Turn On
+          <input type="checkbox" id="honkai3Checkbox" value="honkai3" data-ht-checkbox>Turn On
         </label>
       </div>
       <div>
@@ -76,7 +76,7 @@
       </div>
       <div class="d-flex" style="gap: 0.5rem">
         <input type="time" id="honkai3CheckInTimeInput">
-        <button type="button" onclick="setCheckInTime('honkai3')" data-ht-set>Set</button>
+        <button type="button" id="honkai3SetCheckInTimeBtn" data-ht-set>Set</button>
       </div>
       <div>
         <span class="m-0" data-ht-timeset>Check In Time set to</span><span id="honkai3CheckInTime">00:05</span>
@@ -95,7 +95,7 @@
     <div class="d-flex flex-column" style="gap: 0.5rem">
       <div>
         <label for="totCheckbox">
-          <input type="checkbox" id="totCheckbox" value="tot" onchange="toggle(this)" data-ht-checkbox>Turn On
+          <input type="checkbox" id="totCheckbox" value="tot" data-ht-checkbox>Turn On
         </label>
       </div>
       <div>
@@ -103,13 +103,40 @@
       </div>
       <div class="d-flex" style="gap: 0.5rem">
         <input type="time" id="totCheckInTimeInput">
-        <button type="button" onclick="setCheckInTime('tot')" data-ht-set>Set</button>
+        <button type="button" id="totSetCheckInTimeBtn" data-ht-set>Set</button>
       </div>
       <div>
         <span class="m-0" data-ht-timeset>Check In Time set to</span><span id="totCheckInTime">00:05</span>
       </div>
       <div>
         <a class="m-0" href="https://act.hoyolab.com/bbs/event/signin-bh3/index.html?act_id=e202110291205111"
+          data-ht-visit>Visit Page</a>
+      </div>
+    </div>
+    </div>
+  </section>
+  <hr class="d-none">
+
+  <section class="d-flex flex-row w-100 d-none" style="gap: 1rem">
+    <!-- <img src="images/zzz_icons.webp" alt="Tear of Themis Icon" width="32px" height="32px" style="border-radius: 50%;"> -->
+    <div class="d-flex flex-column" style="gap: 0.5rem">
+      <div>
+        <label for="zzzCheckbox">
+          <input type="checkbox" id="zzzCheckbox" value="tot" data-ht-checkbox>Turn On
+        </label>
+      </div>
+      <div>
+        <label id="zzzCheckInStatus">Today Not Check In</label>
+      </div>
+      <div class="d-flex" style="gap: 0.5rem">
+        <input type="time" id="zzzCheckInTimeInput">
+        <button type="button" id="zzzSetCheckInTimeBtn" data-ht-set>Set</button>
+      </div>
+      <div>
+        <span class="m-0" data-ht-timeset>Check In Time set to</span><span id="zzzCheckInTime">00:05</span>
+      </div>
+      <div>
+        <a class="m-0" href=""
           data-ht-visit>Visit Page</a>
       </div>
     </div>

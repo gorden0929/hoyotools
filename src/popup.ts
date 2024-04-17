@@ -18,6 +18,7 @@ async function setCheckInTime(game: Game) {
     return;
   }
   const hoyoToolParams = await getHoyoToolParams();
+  console.log(hoyoToolParams);
   hoyoToolParams[game].checkInTime = checkInTimeInputValue;
   await setHoyoToolParams(hoyoToolParams);
 }
@@ -25,7 +26,11 @@ async function setCheckInTime(game: Game) {
 async function toggle(element: HTMLInputElement) {
   const game = element.value as Game;
   const hoyoToolParams = await getHoyoToolParams();
+  console.log(hoyoToolParams);
+  
   hoyoToolParams[game].isActive = element.checked;
+  console.log(hoyoToolParams);
+  await setHoyoToolParams(hoyoToolParams);
 }
 
 const DOMContentLoaded = async () => {
@@ -33,8 +38,11 @@ const DOMContentLoaded = async () => {
   Object.keys(hoyoToolParams).forEach(async (key) => {
     const game = key as Game;
     const params = hoyoToolParams[game];
+    console.log(params);
     // set checkbox
     const checkboxElement = document.getElementById(`${game}Checkbox`) as HTMLInputElement;
+    console.log(checkboxElement.checked);
+    
     checkboxElement.checked = params.isActive;
     // set time input
     const checkInTimeInputElement = document.getElementById(`${game}CheckInTimeInput`) as HTMLInputElement;
@@ -52,19 +60,31 @@ const DOMContentLoaded = async () => {
         checkInStatusElement.innerHTML = getMessages('notCheckedIn');
       }
     }
-    // set translation
-    const turnOnElements = document.querySelectorAll('[data-ht-checkbox]');
-    turnOnElements.forEach((element) => {
-      element.innerHTML = getMessages('turnOn');
+    // set event listener for button
+    const setCheckInTimeBtn = document.getElementById(`${game}SetCheckInTimeBtn`) as HTMLButtonElement;
+    setCheckInTimeBtn.addEventListener('click', async () => {
+      await setCheckInTime(game);
     });
-    const setElements = document.querySelectorAll('[data-ht-set]');
-    setElements.forEach((element) => {
-      element.innerHTML = getMessages('set');
+
+    //m set event listener for checkbox
+    checkboxElement.addEventListener('change', async (event) => {
+      console.log(event.target);
+      
+      await toggle(event.target as HTMLInputElement);
     });
-    const timeSetElements = document.querySelectorAll('[data-ht-timeset]');
-    timeSetElements.forEach((element) => {
-      element.innerHTML = getMessages('timeSet');
-    });
+  });
+  // set translation
+  const turnOnElements = document.querySelectorAll('[data-ht-checkbox]');
+  turnOnElements.forEach((element) => {
+    element.innerHTML = getMessages('turnOn');
+  });
+  const setElements = document.querySelectorAll('[data-ht-set]');
+  setElements.forEach((element) => {
+    element.innerHTML = getMessages('set');
+  });
+  const timeSetElements = document.querySelectorAll('[data-ht-timeset]');
+  timeSetElements.forEach((element) => {
+    element.innerHTML = getMessages('timeSet');
   });
 };
 document.addEventListener('DOMContentLoaded', DOMContentLoaded);
