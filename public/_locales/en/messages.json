@@ -16,5 +16,8 @@
   },
   "timeSet": {
     "message": "Check In Time set to"
+  },
+  "redeemCode": {
+    "message": "Redeem Code"
   }
 }

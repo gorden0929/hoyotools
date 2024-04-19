@@ -92,5 +92,9 @@ const DOMContentLoaded = async () => {
   timeSetElements.forEach(element => {
     element.innerHTML = getMessages('timeSet');
   });
+  const redeemCodeElements = document.querySelectorAll('[data-ht-redeem]');
+  redeemCodeElements.forEach(element => {
+    element.innerHTML = getMessages('redeemCode');
+  });
 };
 document.addEventListener('DOMContentLoaded', DOMContentLoaded);

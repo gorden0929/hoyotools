@@ -16,5 +16,8 @@
   },
   "timeSet": {
     "message": "签到时间设置为"
+  },
+  "redeemCode": {
+    "message": "兑换码"
   }
 }

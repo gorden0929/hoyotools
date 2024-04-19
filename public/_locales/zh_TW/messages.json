@@ -16,5 +16,8 @@
   },
   "timeSet": {
     "message": "簽到時間設置為"
+  },
+  "redeemCode": {
+    "message": "兌換碼"
   }
 }
