@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a chrome extension that automatically does Check in on hoyolab for Honkai: Star Rail.
+This is a chrome extension that automatically does Check in on hoyolab for Hoyoverse Game.
 
 ## Installation
 

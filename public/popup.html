@@ -1,28 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=1920, initial-scale=1.0">
-  <title>Honkai: Star Rail Auto Check In</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HoyoTool</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <h3 id="isCheckInText" class="my-2"></h3>
-  <div class="d-flex justify-content-center">
-    <div class="form-check form-switch mb-2">
-      <input class="form-check-input" type="checkbox" role="switch" id="switchCheck" checked>
-      <label class="form-check-label" for="switchCheck" id="switchCheckLabel"></label>
+  <section class="d-flex flex-row w-100" style="gap: 1rem">
+    <img src="images/genshin_icons.webp" alt="Genshin Impact Icon" width="32px" height="32px">
+    <div class="d-flex flex-column" style="gap: 0.5rem">
+      <div>
+        <label class="cursor-pointer" for="genshinCheckbox">
+          <input type="checkbox" id="genshinCheckbox" value="genshin" data-ht-checkbox>Turn On
+        </label>
+      </div>
+      <div>
+        <label id="genshinCheckInStatus">Today Not Check In</label>
+      </div>
+      <div class="d-flex" style="gap: 0.5rem">
+        <input type="time" id="genshinCheckInTimeInput">
+        <button type="button" id="genshinSetCheckInTimeBtn" data-ht-set>Set</button>
+      </div>
+      <div>
+        <span class="m-0" data-ht-timeset>Check In Time set to</span><span id="genshinCheckInTime">00:05</span>
+      </div>
+      <div>
+        <a class="m-0" href="https://act.hoyolab.com/ys/event/signin-sea-v3/index.html?act_id=e202102251931481"
+          target="_blank" data-ht-visit>Visit Page</a>
+        <a href="https://genshin.hoyoverse.com/gift" target="_blank" data-ht-redeem>Redeem Code</a>
+      </div>
     </div>
-  </div>
-  <div class="mb-2">
-    <a class="btn btn-dark rounded-0"
-      href="https://act.hoyolab.com/bbs/event/signin/hkrpg/index.html?act_id=e202303301540311" target="_blank"
-      id="visitPageLink"></a>
-  </div>
+    </div>
+  </section>
+  <hr>
+
+  <section class="d-flex flex-row w-100" style="gap: 1rem">
+    <img src="images/hsr_icons.webp" alt="Honkai: Star Rail Icon" width="32px" height="32px">
+    <div class="d-flex flex-column" style="gap: 0.5rem">
+      <div>
+        <label class="cursor-pointer" for="hsrCheckbox">
+          <input type="checkbox" id="hsrCheckbox" value="hsr" data-ht-checkbox>Turn On
+        </label>
+      </div>
+      <div>
+        <label id="hsrCheckInStatus">Today Not Check In</label>
+      </div>
+      <div class="d-flex" style="gap: 0.5rem">
+        <input type="time" id="hsrCheckInTimeInput">
+        <button type="button" id="hsrSetCheckInTimeBtn" data-ht-set>Set</button>
+      </div>
+      <div>
+        <span class="m-0" data-ht-timeset>Check In Time set to</span><span id="hsrCheckInTime">00:05</span>
+      </div>
+      <div>
+        <a class="m-0" href="https://act.hoyolab.com/bbs/event/signin/hkrpg/index.html?act_id=e202303301540311"
+          target="_blank" data-ht-visit>Visit Page</a>
+        <a href="https://hsr.hoyoverse.com/gift" target="_blank" data-ht-redeem>Redeem Code</a>
+      </div>
+    </div>
+    </div>
+  </section>
+  <hr>
+
+  <section class="d-flex flex-row w-100" style="gap: 1rem">
+    <img src="images/honkai3_icons.webp" alt="Honkai Impact 3rd Icon" width="32px" height="32px">
+    <div class="d-flex flex-column" style="gap: 0.5rem">
+      <div>
+        <label class="cursor-pointer" for="honkai3Checkbox">
+          <input type="checkbox" id="honkai3Checkbox" value="honkai3" data-ht-checkbox>Turn On
+        </label>
+      </div>
+      <div>
+        <label id="honkai3CheckInStatus">Today Not Check In</label>
+      </div>
+      <div class="d-flex" style="gap: 0.5rem">
+        <input type="time" id="honkai3CheckInTimeInput">
+        <button type="button" id="honkai3SetCheckInTimeBtn" data-ht-set>Set</button>
+      </div>
+      <div>
+        <span class="m-0" data-ht-timeset>Check In Time set to</span><span id="honkai3CheckInTime">00:05</span>
+      </div>
+      <div>
+        <a class="m-0" href="https://act.hoyolab.com/bbs/event/signin-bh3/index.html?act_id=e202110291205111"
+          target="_blank" data-ht-visit>Visit Page</a>
+      </div>
+    </div>
+    </div>
+  </section>
+  <hr>
+
+  <section class="d-flex flex-row w-100" style="gap: 1rem">
+    <img src="images/tot_icons.webp" alt="Tear of Themis Icon" width="32px" height="32px" style="border-radius: 50%;">
+    <div class="d-flex flex-column" style="gap: 0.5rem">
+      <div>
+        <label class="cursor-pointer" for="totCheckbox">
+          <input type="checkbox" id="totCheckbox" value="tot" data-ht-checkbox>Turn On
+        </label>
+      </div>
+      <div>
+        <label id="totCheckInStatus">Today Not Check In</label>
+      </div>
+      <div class="d-flex" style="gap: 0.5rem">
+        <input type="time" id="totCheckInTimeInput">
+        <button type="button" id="totSetCheckInTimeBtn" data-ht-set>Set</button>
+      </div>
+      <div>
+        <span class="m-0" data-ht-timeset>Check In Time set to</span><span id="totCheckInTime">00:05</span>
+      </div>
+      <div>
+        <a class="m-0" href="https://act.hoyolab.com/bbs/event/signin-bh3/index.html?act_id=e202110291205111"
+          target="_blank" data-ht-visit>Visit Page</a>
+      </div>
+    </div>
+    </div>
+  </section>
+  <hr class="d-none">
+
+  <section class="d-flex flex-row w-100 d-none" style="gap: 1rem">
+    <!-- <img src="images/zzz_icons.webp" alt="Tear of Themis Icon" width="32px" height="32px" style="border-radius: 50%;"> -->
+    <div class="d-flex flex-column" style="gap: 0.5rem">
+      <div>
+        <label class="cursor-pointer" for="zzzCheckbox">
+          <input type="checkbox" id="zzzCheckbox" value="tot" data-ht-checkbox>Turn On
+        </label>
+      </div>
+      <div>
+        <label id="zzzCheckInStatus">Today Not Check In</label>
+      </div>
+      <div class="d-flex" style="gap: 0.5rem">
+        <input type="time" id="zzzCheckInTimeInput">
+        <button type="button" id="zzzSetCheckInTimeBtn" data-ht-set>Set</button>
+      </div>
+      <div>
+        <span class="m-0" data-ht-timeset>Check In Time set to</span><span id="zzzCheckInTime">00:05</span>
+      </div>
+      <div>
+        <a class="m-0" href="" data-ht-visit target="_blank">Visit Page</a>
+      </div>
+    </div>
+    </div>
+  </section>
   <script src="popup.js"></script>
 </body>
 

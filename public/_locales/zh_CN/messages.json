@@ -9,6 +9,15 @@
     "message": "今日未签到"
   },
   "turnOnOff": {
-    "message": "开启/关闭自动签到"
+    "message": "开启自动签到"
+  },
+  "set": {
+    "message": "设置"
+  },
+  "timeSet": {
+    "message": "签到时间设置为"
+  },
+  "redeemCode": {
+    "message": "兑换码"
   }
 }
