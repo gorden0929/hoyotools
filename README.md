@@ -2,7 +2,7 @@
 
 ## Description
 
-This extension allows you to auto check in on Hoyoverse game at Hoyolabs.
+This is a chrome extension that automatically does Check in on hoyolab for Hoyoverse Game.
 
 ## Custom Install
 

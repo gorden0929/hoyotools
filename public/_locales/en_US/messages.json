@@ -8,7 +8,16 @@
   "notCheckIn": {
     "message": "Not check in today."
   },
-  "turnOnOff": {
-    "message": "Turn on/off"
+  "turnOn": {
+    "message": "Turn on"
+  },
+  "set": {
+    "message": "Set"
+  },
+  "timeSet": {
+    "message": "Check In Time set to"
+  },
+  "redeemCode": {
+    "message": "Redeem Code"
   }
 }

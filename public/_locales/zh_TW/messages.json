@@ -9,6 +9,15 @@
     "message": "今日未簽到"
   },
   "turnOnOff": {
-    "message": "開啓/關閉自動簽到"
+    "message": "開啓自動簽到"
+  },
+  "set": {
+    "message": "設置"
+  },
+  "timeSet": {
+    "message": "簽到時間設置為"
+  },
+  "redeemCode": {
+    "message": "兌換碼"
   }
 }

@@ -1,3 +1,8 @@
-node_modules
-dist
+# Ignore the build directory
+dist/
+
+# Ignore dev dependencies
+node_modules/
+
+# Zip
 *.zip

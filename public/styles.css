@@ -1,84 +1,84 @@
+html,
 body {
-  /* dark mode  */
-  background-color: #e5e5e5;
-  width: 250px;
+  width: 350px;
+  margin: 0;
+  padding: .5rem;
+  background-color: #222222;
+  color: #EEEEEE;
+}
+
+button {
+  background-color: bisque;
+  border: 0;
+  border-radius: .5rem;
+  padding: .25rem;
+  cursor: pointer;
   font-size: 1rem;
-  text-align: center;
 }
 
-.d-flex {
-  display: flex;
+button:hover {
+  transition: all .2s ease-in-out;
+  background-color: antiquewhite;
+  color: #222222;
 }
 
-.justify-content-center {
-  justify-content: center;
+button:active {
+  transform: scale(.9);
+  transition: all .2s ease-in-out;
 }
 
-.align-items-center {
-  align-items: center;
+input[type=checkbox] {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+input[type=time] {
+  height: 1.5rem;
+  font-size: 1rem;
+  padding: .25rem;
+  border-radius: .5rem;
+  border: 0;
+}
+
+a {
+  color: burlywood;
+  text-decoration: none;
+}
+
+a:hover {
+  transition: all .2s ease-in-out;
+  color: bisque;
 }
 
 .cursor-pointer {
   cursor: pointer;
 }
 
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 30px;
-  height: 17px;
+.d-none {
+  display: none !important;
 }
 
-.switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
+.d-flex {
+  display: flex;
 }
 
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+.flex-column {
+  flex-direction: column;
 }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 13px;
-  width: 13px;
-  left: 2px;
-  bottom: 2px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+.flex-row {
+  flex-direction: row;
 }
 
-input:checked + .slider {
-  background-color: #2196F3;
+.align-items-center {
+  align-items: center;
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+.w-100 {
+  width: 100%;
 }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(13px);
-  -ms-transform: translateX(13px);
-  transform: translateX(13px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 17px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
+.m-0 {
+  margin: 0;
 }
