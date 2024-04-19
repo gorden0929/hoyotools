@@ -1,12 +1,12 @@
-# HSR Auto Check in Chrome Extension
+# HoyoTools Chrome Extension
 
 ## Description
 
-This is a chrome extension that automatically does Check in on hoyolab for Honkai: Star Rail.
+This extension allows you to auto check in on Hoyoverse game at Hoyolabs.
 
-## Installation
+## Custom Install
 
-1. Download the latest release from [here](https://github.com/gorden0929/hsr-daily-checkin/releases)
+1. Download the latest release from [here](https://github.com/gorden0929/hoyotools/releases)
 2. Unzip the file
 3. Open Chrome and go to `chrome://extensions/`
 4. Enable `Developer mode` on the top right corner
