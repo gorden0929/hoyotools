@@ -1,6 +1,12 @@
 import { Game } from './interface';
 import { getHoyoToolParams, getMessages, setHoyoToolParams } from './utils';
 
+/**
+ * Sets the check-in time for a game.
+ *
+ * @param {Game} game - The game for which to set the check-in time.
+ * @return {Promise<void>} - A promise that resolves when the check-in time is set.
+ */
 async function setCheckInTime(game: Game) {
   const checkInTimeInput = document.getElementById(`${game}CheckInTimeInput`) as HTMLInputElement;
   const checkInTimeInputValue = checkInTimeInput.value;
@@ -8,7 +14,7 @@ async function setCheckInTime(game: Game) {
     checkInTimeInput.value = '00:05';
     return;
   }
-  const [hour, minute] = checkInTimeInputValue.split(':').map((v) => parseInt(v));
+  const [hour, minute] = checkInTimeInputValue.split(':').map(v => parseInt(v));
   if (hour === 0 && minute < 5) {
     checkInTimeInput.value = '00:05';
     return;
@@ -18,35 +24,37 @@ async function setCheckInTime(game: Game) {
     return;
   }
   const hoyoToolParams = await getHoyoToolParams();
-  console.log(hoyoToolParams);
   hoyoToolParams[game].checkInTime = checkInTimeInputValue;
   await setHoyoToolParams(hoyoToolParams);
+  const checkInTimeElement = document.getElementById(`${game}CheckInTime`) as HTMLSpanElement;
+  checkInTimeElement.innerHTML = checkInTimeInputValue;
 }
 
+/**
+ * Toggles the isActive property of a game based on the element checked status.
+ *
+ * @param {HTMLInputElement} element - The HTML input element triggering the toggle.
+ * @return {Promise<void>} - A promise that resolves after toggling the isActive property.
+ */
 async function toggle(element: HTMLInputElement) {
   const game = element.value as Game;
   const hoyoToolParams = await getHoyoToolParams();
-  console.log(hoyoToolParams);
-  
   hoyoToolParams[game].isActive = element.checked;
-  console.log(hoyoToolParams);
   await setHoyoToolParams(hoyoToolParams);
 }
 
 const DOMContentLoaded = async () => {
   const hoyoToolParams = await getHoyoToolParams();
-  Object.keys(hoyoToolParams).forEach(async (key) => {
+  Object.keys(hoyoToolParams).forEach(async key => {
     const game = key as Game;
     const params = hoyoToolParams[game];
-    console.log(params);
     // set checkbox
     const checkboxElement = document.getElementById(`${game}Checkbox`) as HTMLInputElement;
-    console.log(checkboxElement.checked);
-    
     checkboxElement.checked = params.isActive;
     // set time input
     const checkInTimeInputElement = document.getElementById(`${game}CheckInTimeInput`) as HTMLInputElement;
     checkInTimeInputElement.value = params.checkInTime;
+    // set time
     const checkInTimeElement = document.getElementById(`${game}CheckInTime`) as HTMLSpanElement;
     checkInTimeElement.innerHTML = params.checkInTime;
     // set status
@@ -67,23 +75,21 @@ const DOMContentLoaded = async () => {
     });
 
     //m set event listener for checkbox
-    checkboxElement.addEventListener('change', async (event) => {
-      console.log(event.target);
-      
+    checkboxElement.addEventListener('change', async event => {
       await toggle(event.target as HTMLInputElement);
     });
   });
   // set translation
   const turnOnElements = document.querySelectorAll('[data-ht-checkbox]');
-  turnOnElements.forEach((element) => {
+  turnOnElements.forEach(element => {
     element.innerHTML = getMessages('turnOn');
   });
   const setElements = document.querySelectorAll('[data-ht-set]');
-  setElements.forEach((element) => {
+  setElements.forEach(element => {
     element.innerHTML = getMessages('set');
   });
   const timeSetElements = document.querySelectorAll('[data-ht-timeset]');
-  timeSetElements.forEach((element) => {
+  timeSetElements.forEach(element => {
     element.innerHTML = getMessages('timeSet');
   });
 };

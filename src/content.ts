@@ -1,97 +1,75 @@
-import { Game, GenshinResignInfoResponse, HSRInfoResponse, Honkai3InfoResponse } from './interface';
+import { Game, InfoResponse } from './interface';
 import { getHoyoToolParams, hasReachedCheckInTime, setHoyoToolParams } from './utils';
 import { checkIn } from './value';
 
 const main = async () => {
+  console.log('run auto check in');
   const game = detectGame();
   if (!game) {
+    console.log('game not supported');
     return;
   }
   const hoyoToolParams = await getHoyoToolParams();
 
   if (!hoyoToolParams[game].isActive) {
+    console.log('auto check in not active');
     return;
   }
 
   if (!hasReachedCheckInTime(hoyoToolParams[game].lastCheckInDate, hoyoToolParams[game].checkInTime)) {
+    console.log('auto check in not reached time');
     return;
   }
 
-  if (game === 'genshin') {
-    const resignInfoResponse: GenshinResignInfoResponse = await call(`${checkIn.genshin.infoUrl}`);
-    const resignInfoData = resignInfoResponse.data;
-    if (!resignInfoData || resignInfoData.signed) {
-      console.log('signed');
-      return;
-    }
-    const result = await call(`${checkIn.genshin.signUrl}&lang=${getLanguage()}`, 'POST', {
-      act_id: checkIn.genshin.actId,
-      lang: getLanguage(),
-    });
-    if (result) {
-      hoyoToolParams.genshin.lastCheckInDate = new Date().toISOString();
+  const infoResponse = await call<InfoResponse>(`${checkIn[game].infoUrl}`);
+  const infoData = infoResponse.data;
+  // check if today is signed
+  if (!infoData || infoData.is_sign) {
+    console.log('already signed');
+    // if last check in date is not today
+    if (new Date(hoyoToolParams[game].lastCheckInDate ?? new Date('2000-01-01')).toDateString() !== new Date().toDateString()) {
+      console.log('last check in date is not today');
+      hoyoToolParams[game].lastCheckInDate = new Date().toISOString();
       await setHoyoToolParams(hoyoToolParams);
     }
-  } else if (game === 'hsr') {
-    const infoResponse: HSRInfoResponse = await call(checkIn.hsr.infoUrl);
-    const infoData = infoResponse.data;
-    if (!infoData || infoData.is_sign) {
-      console.log('signed');
-      return;
-    }
-    const result = await call(checkIn.hsr.signUrl, 'POST', {
-      act_id: checkIn.hsr.actId,
-      lang: getLanguage(),
-    });
-    if (result) {
-      hoyoToolParams.hsr.lastCheckInDate = new Date().toISOString();
-      await setHoyoToolParams(hoyoToolParams);
-    }
-  } else if (game === 'honkai3') {
-    const infoResponse: Honkai3InfoResponse = await call(checkIn.honkai3.infoUrl);
-    const infoData = infoResponse.data;
-    if (!infoData || infoData.is_sign) {
-      console.log('signed');
-      return;
-    }
-    const result = await call(checkIn.honkai3.signUrl, 'POST', {
-      act_id: checkIn.honkai3.actId,
-      lang: getLanguage(),
-    });
-    if (result) {
-      hoyoToolParams.honkai3.lastCheckInDate = new Date().toISOString();
-      await setHoyoToolParams(hoyoToolParams);
-    }
-  } else if (game === 'tot') {
-    const infoResponse = await call(checkIn.tot.infoUrl);
-    const infoData = infoResponse.data;
-    if (!infoData || infoData.is_sign) {
-      console.log('signed');
-      return;
-    }
-    const result = await call(checkIn.tot.signUrl, 'POST', {
-      act_id: checkIn.tot.actId,
-      lang: getLanguage(),
-    });
-    if (result) {
-      hoyoToolParams.tot.lastCheckInDate = new Date().toISOString();
-      await setHoyoToolParams(hoyoToolParams);
-    }
+    return;
+  }
+  console.log('check in');
+  const result = await call(`${checkIn[game].signUrl}&lang=${getLanguage()}`, 'POST', {
+    act_id: checkIn[game].actId,
+    lang: getLanguage(),
+  });
+  if (result) {
+    hoyoToolParams[game].lastCheckInDate = new Date().toISOString();
+    await setHoyoToolParams(hoyoToolParams);
   }
 };
 
+/**
+ * Detects the game based on the 'act_id' parameter in the URL.
+ *
+ * @return {Game | undefined} The detected game, or undefined if no game is found.
+ */
 const detectGame = () => {
   const url = new URL(window.location.toString());
   const params = new URLSearchParams(url.search);
   const actId = params.get('act_id')!;
-  return Object.keys(checkIn).find((game) => {
+  return Object.keys(checkIn).find(game => {
     if (actId === checkIn[game as keyof typeof checkIn].actId) {
       return game;
     }
   }) as Game | undefined;
 };
 
-const call = async (url: string | URL, method: 'POST' | 'GET' = 'GET', body: any = undefined) => {
+/**
+ * Sends an HTTP request to the specified URL using the specified method and body.
+ *
+ * @param {string | URL} url - The URL to send the request to.
+ * @param {'POST' | 'GET'} [method='GET'] - The HTTP method to use for the request. Defaults to 'GET'.
+ * @param {any} [body=undefined] - The request body to send with the request. Defaults to undefined.
+ * @return {Promise<ReponseType>} - A promise that resolves to the response body parsed as JSON.
+ */
+const call = async <ReponseType = any>(url: string | URL, method: 'POST' | 'GET' = 'GET', body: any = undefined): Promise<ReponseType> => {
   const reqInit: RequestInit = {
     method,
     mode: 'cors',
@@ -123,4 +101,8 @@ const getLanguage = () => {
   return lang;
 };
 
-main();
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', main);
+} else {
+  main();
+}

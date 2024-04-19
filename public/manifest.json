@@ -1,9 +1,9 @@
 {
-  "name": "HSR Auto Check In",
-  "description": "Auto Check In HSR on Hoyolab Daily",
-  "version": "1.0.1",
+  "name": "HoyoTools",
+  "description": "Auto Check-In Hoyoverse Game on Hoyolab",
+  "version": "2.0.0",
   "manifest_version": 3,
-  "permissions": ["background", "storage", "alarms"],
+  "permissions": ["background", "storage", "alarms", "tabs"],
   "background": {
     "service_worker": "background.js"
   },
