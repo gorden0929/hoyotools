@@ -1,7 +1,7 @@
 import { games } from './value';
 
 export type InfoResponse = GenshinInfoResponse | HSRInfoResponse | Honkai3InfoResponse | ToTInfoResponse;
-
+export type SignResponse = GenshinSignResponse | HSRSignResponse;
 export interface GenshinResignInfoResponse {
   retcode: number;
   message: string;

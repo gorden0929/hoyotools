@@ -1,4 +1,4 @@
-import { Game, InfoResponse } from './interface';
+import { Game, InfoResponse, SignResponse } from './interface';
 import { getHoyoToolParams, hasReachedCheckInTime, setHoyoToolParams } from './utils';
 import { checkIn } from './value';
 
@@ -21,7 +21,8 @@ const main = async () => {
     return;
   }
 
-  const infoResponse = await call<InfoResponse>(`${checkIn[game].infoUrl}`);
+  const infoUrl = game === 'genshin' ? `${checkIn[game].infoUrl}?lang=${getLanguage()}&act_id=${checkIn[game].actId}` : checkIn[game].infoUrl;
+  const infoResponse = await call<InfoResponse>(infoUrl);
   const infoData = infoResponse.data;
   // check if today is signed
   if (!infoData || infoData.is_sign) {
@@ -35,11 +36,12 @@ const main = async () => {
     return;
   }
   console.log('check in');
-  const result = await call(`${checkIn[game].signUrl}&lang=${getLanguage()}`, 'POST', {
+  const signUrl = game === 'genshin' ? `${checkIn[game].signUrl}?lang=${getLanguage()}` : checkIn[game].signUrl;
+  const result = await call<SignResponse>(signUrl, 'POST', {
     act_id: checkIn[game].actId,
     lang: getLanguage(),
   });
-  if (result) {
+  if (result?.data) {
     hoyoToolParams[game].lastCheckInDate = new Date().toISOString();
     await setHoyoToolParams(hoyoToolParams);
   }
